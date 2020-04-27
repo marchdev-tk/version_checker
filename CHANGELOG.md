@@ -2,4 +2,4 @@
 
 ## [1.0.0]
 
-* Add changes here
+* Implemented version checker
