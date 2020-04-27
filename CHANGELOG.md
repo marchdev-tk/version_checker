@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0]
+
+* Added id to injected script, redo logic of getting current app version.
+
 ## [1.1.0]
 
 * Redesigned context dependant arguments of `VersionChecker.initialize` method.
