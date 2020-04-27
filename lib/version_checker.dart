@@ -14,14 +14,14 @@ import 'src/version_helper.dart';
 import 'src/new_version_popup.dart';
 
 class VersionChecker {
-  static const _defaultNewVersionAvailableText = 'NEW VERSION AVAILABLE';
+  static const _defaultNewVersionText = 'NEW VERSION AVAILABLE';
   static const _defaultApplyText = 'Apply';
 
   static void initialize({
     @required BuildContext Function() contextBuilder,
     Duration timerDelay = const Duration(minutes: 5),
     Duration instantDelay = const Duration(milliseconds: 300),
-    String Function(BuildContext context) newVersionAvailableTextBuilder,
+    String Function(BuildContext context) newVersionTextBuilder,
     String Function(BuildContext context) applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
@@ -40,9 +40,9 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            newVersionAvailableText: newVersionAvailableTextBuilder != null
-                ? newVersionAvailableTextBuilder(context)
-                : _defaultNewVersionAvailableText,
+            newVersionText: newVersionTextBuilder != null
+                ? newVersionTextBuilder(context)
+                : _defaultNewVersionText,
             applyText: applyTextBuilder != null
                 ? applyTextBuilder(context)
                 : _defaultApplyText,
@@ -59,9 +59,9 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            newVersionAvailableText: newVersionAvailableTextBuilder != null
-                ? newVersionAvailableTextBuilder(context)
-                : _defaultNewVersionAvailableText,
+            newVersionText: newVersionTextBuilder != null
+                ? newVersionTextBuilder(context)
+                : _defaultNewVersionText,
             applyText: applyTextBuilder != null
                 ? applyTextBuilder(context)
                 : _defaultApplyText,
@@ -74,7 +74,7 @@ class VersionChecker {
 
   static void checkVersion({
     @required BuildContext context,
-    String newVersionAvailableText = _defaultNewVersionAvailableText,
+    String newVersionText = _defaultNewVersionText,
     String applyText = _defaultApplyText,
     bool debugOutput = true,
   }) async {
@@ -91,7 +91,7 @@ class VersionChecker {
     if (serverVersion > appVersion) {
       await NewVersionModal.open(
         context,
-        newVersionAvailableText: newVersionAvailableText,
+        newVersionAvailableText: newVersionText,
         applyText: applyText,
       );
     }

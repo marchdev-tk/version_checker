@@ -8,17 +8,15 @@ class DOMInjectorImpl {
   static void inject() {
     final head = html.querySelector('head');
     head.appendHtml(
-      '''
-      <script>
-        var appVersion = "0.0.0";
+      '''<script>
+var appVersion = "0.0.0";
 
-        function hardReload() {
-          setTimeout(function () {
-            window.location.reload(true);
-          }, 100);
-        }
-      </script>
-      ''',
+function hardReload() {
+  setTimeout(function () {
+    window.location.reload(true);
+  }, 100);
+}
+</script>''',
       treeSanitizer: html.NodeTreeSanitizer.trusted,
     );
   }
