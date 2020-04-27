@@ -70,3 +70,7 @@ Add examples here
 ## Feature requests and Bug reports
 
 Feel free to post a feature requests or report a bug [here](https://github.com/marchdev-tk/version_checker/issues).
+
+## TODO
+
+ * Add Theme support 
