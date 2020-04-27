@@ -23,7 +23,7 @@ Also, for localization purposes this method has following arguments:
 
 If `debugOutput` argument is set to `true`, then extra info will be printed into console.
 
-### Before building and deploying web site you should execute following script:
+### Before deploying website, you should update build script as follows:
 
 **Linux:**
 ```bash
@@ -32,11 +32,14 @@ If `debugOutput` argument is set to `true`, then extra info will be printed into
 VERSION=$(sed -n -e 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\)\(+[0-9]*\)*/\1/p' pubspec.yaml)
 
 echo "App Version: ${VERSION}"
+
+flutter build web
+
 echo "Updating app version..."
 
-sed -i "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" web/index.html
-sed -i "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" web/index.html
-sed -i "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" assets/env.json
+sed -i "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" build/web/index.html
+sed -i "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" build/web/index.html
+sed -i "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" build/web/assets/packages/version_checker/assets/env.json
 
 echo "App version updated"
 ```
@@ -48,11 +51,14 @@ echo "App version updated"
 VERSION=$(sed -n -e 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\)\(+[0-9]*\)*/\1/p' pubspec.yaml)
 
 echo "App Version: ${VERSION}"
+
+flutter build web
+
 echo "Updating app version..."
 
-sed -i '' "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" web/index.html
-sed -i '' "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" web/index.html
-sed -i '' "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" assets/env.json
+sed -i '' "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" build/web/index.html
+sed -i '' "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" build/web/index.html
+sed -i '' "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" build/web/assets/packages/version_checker/assets/env.json
 
 echo "App version updated"
 ```
