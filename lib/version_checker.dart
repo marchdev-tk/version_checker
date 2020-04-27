@@ -14,12 +14,15 @@ import 'src/version_helper.dart';
 import 'src/new_version_popup.dart';
 
 class VersionChecker {
+  static const _defaultNewVersionAvailableText = 'NEW VERSION AVAILABLE';
+  static const _defaultApplyText = 'Apply';
+
   static void initialize({
-    @required BuildContext context,
+    @required BuildContext Function() contextBuilder,
     Duration timerDelay = const Duration(minutes: 5),
     Duration instantDelay = const Duration(milliseconds: 300),
-    String newVersionAvailableText = 'NEW VERSION AVAILABLE',
-    String applyText = 'Apply',
+    String Function(BuildContext context) newVersionAvailableTextBuilder,
+    String Function(BuildContext context) applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
   }) {
@@ -33,10 +36,16 @@ class VersionChecker {
         (_) async {
           await Future.delayed(
               instantDelay ?? const Duration(milliseconds: 300));
+
+          final context = contextBuilder();
           checkVersion(
             context: context,
-            newVersionAvailableText: newVersionAvailableText,
-            applyText: applyText,
+            newVersionAvailableText: newVersionAvailableTextBuilder != null
+                ? newVersionAvailableTextBuilder(context)
+                : _defaultNewVersionAvailableText,
+            applyText: applyTextBuilder != null
+                ? applyTextBuilder(context)
+                : _defaultApplyText,
             debugOutput: debugOutput,
           );
         },
@@ -46,20 +55,27 @@ class VersionChecker {
     Timer.periodic(
       timerDelay ?? const Duration(minutes: 5),
       (_) => SchedulerBinding.instance.addPostFrameCallback(
-        (_) => checkVersion(
-          context: context,
-          newVersionAvailableText: newVersionAvailableText,
-          applyText: applyText,
-          debugOutput: debugOutput,
-        ),
+        (_) {
+          final context = contextBuilder();
+          checkVersion(
+            context: context,
+            newVersionAvailableText: newVersionAvailableTextBuilder != null
+                ? newVersionAvailableTextBuilder(context)
+                : _defaultNewVersionAvailableText,
+            applyText: applyTextBuilder != null
+                ? applyTextBuilder(context)
+                : _defaultApplyText,
+            debugOutput: debugOutput,
+          );
+        },
       ),
     );
   }
 
   static void checkVersion({
     @required BuildContext context,
-    String newVersionAvailableText = 'NEW VERSION AVAILABLE',
-    String applyText = 'Apply',
+    String newVersionAvailableText = _defaultNewVersionAvailableText,
+    String applyText = _defaultApplyText,
     bool debugOutput = true,
   }) async {
     final serverVersion = await VersionHelper.getActualVersion();
