@@ -1,6 +1,6 @@
-# flutter_package_template_example
+# version_checker_example
 
-Demonstrates how to use the flutter_package_template package.
+Demonstrates how to use the version_checker package.
 
 ## Usage
 

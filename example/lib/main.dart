@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_package_template/flutter_package_template.dart';
+import 'package:version_checker/version_checker.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'flutter_package_template Demo',
+      title: 'Version Checker Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

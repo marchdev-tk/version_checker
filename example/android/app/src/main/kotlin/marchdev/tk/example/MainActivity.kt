@@ -1,4 +1,4 @@
-package marchdev.tk.flutter_package_template_example
+package marchdev.tk.version_checker_example
 
 import io.flutter.embedding.android.FlutterActivity
 
