@@ -8,10 +8,12 @@ class DOMInjectorImpl {
   static void inject() {
     final head = html.querySelector('head');
     final html.ScriptElement mainDartVer = html.querySelector('body > script');
-    final appVersion = mainDartVer?.src?.split('v=')?.last;
+    final appVersion = mainDartVer?.src?.contains('v=') == true
+        ? mainDartVer.src.split('v=').last
+        : null;
     head.appendHtml(
-      '''<script>
-var appVersion = "${appVersion != null ? appVersion : '0.0.0'}";
+      '''<script id="version-checker-script">
+var appVersion = "${appVersion?.isNotEmpty == true ? appVersion : '0.0.0'}";
 
 function hardReload() {
   setTimeout(function () {

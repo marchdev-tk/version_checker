@@ -11,10 +11,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  MyApp() {
+    VersionChecker.initialize(
+      contextBuilder: () => _navigatorKey.currentState.overlay.context,
+    );
+  }
+
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Version Checker Demo',
+      navigatorKey: _navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -31,6 +40,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: create example
+    return Container();
   }
 }

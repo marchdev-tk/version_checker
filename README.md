@@ -9,6 +9,8 @@ Version Checker Popup is used to prompt user for website reloading with clearing
 
 ## Getting Started
 
+### **IMPORTANT!** main.dart.js script must be the first script in body tag!
+
 To start using this popup `VersionChecker.initialize` method should be called only once, for instance within constructor of <Your>App class within main.dart file.
 
 Via `VersionChecker.initialize` method could be set delay for checking version:
@@ -37,7 +39,6 @@ flutter build web
 
 echo "Updating app version..."
 
-sed -i "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" build/web/index.html
 sed -i "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" build/web/index.html
 sed -i "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" build/web/assets/packages/version_checker/assets/env.json
 
@@ -56,7 +57,6 @@ flutter build web
 
 echo "Updating app version..."
 
-sed -i '' "s/var appVersion = \"[0-9]*\.[0-9]*\.[0-9]*\";/var appVersion = \"${VERSION}\";/g" build/web/index.html
 sed -i '' "s/src=\"main.dart.js\"/src=\"main.dart.js?v=${VERSION}\"/g" build/web/index.html
 sed -i '' "s/\"app_version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"app_version\": \"${VERSION}\"/g" build/web/assets/packages/version_checker/assets/env.json
 

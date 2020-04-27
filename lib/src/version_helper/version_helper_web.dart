@@ -28,6 +28,13 @@ class VersionHelperImpl {
     }
   }
 
-  static Future<Version> getAppVersion() async =>
-      Version.parse(js.context['appVersion']);
+  static Future<Version> getAppVersion() async {
+    final html.ScriptElement script =
+        html.querySelector('#version-checker-script');
+    final version = RegExp('var appVersion = \"([0-9]*\.[0-9]*\.[0-9]*)\"')
+        .firstMatch(script.innerHtml)
+        .group(1);
+
+    return Version.parse(version);
+  }
 }
