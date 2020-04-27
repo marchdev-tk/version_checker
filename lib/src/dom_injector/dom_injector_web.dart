@@ -7,9 +7,11 @@ import 'dart:html' as html;
 class DOMInjectorImpl {
   static void inject() {
     final head = html.querySelector('head');
+    final html.ScriptElement mainDartVer = html.querySelector('body > script');
+    final appVersion = mainDartVer?.src?.split('v=')?.last;
     head.appendHtml(
       '''<script>
-var appVersion = "0.0.0";
+var appVersion = "${appVersion != null ? appVersion : '0.0.0'}";
 
 function hardReload() {
   setTimeout(function () {
