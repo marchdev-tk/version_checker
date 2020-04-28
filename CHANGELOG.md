@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1]
+
+* Redo theme argument to themeBuilder.
+
 ## [1.3.0]
 
 * Added theme support.
