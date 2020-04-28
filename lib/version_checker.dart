@@ -17,6 +17,11 @@ class VersionChecker {
   static const _defaultNewVersionText = 'NEW VERSION AVAILABLE';
   static const _defaultApplyText = 'Apply';
 
+  /// If `colorSchemeBuilder` provided, it will use following properties:
+  ///  * `colorScheme.background` - dialog background color;
+  ///  * `colorScheme.onBackground` - title text color;
+  ///  * `colorScheme.secondary` - button color;
+  ///  * `colorScheme.onSecondary` - button text color.
   static void initialize({
     @required BuildContext Function() contextBuilder,
     Duration timerDelay = const Duration(minutes: 5),
@@ -25,7 +30,7 @@ class VersionChecker {
     String Function(BuildContext context) applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
-    ThemeData Function(BuildContext) themeBuilder,
+    ColorScheme Function(BuildContext) colorSchemeBuilder,
   }) {
     assert(instantCheck != null);
     assert(debugOutput != null);
@@ -41,7 +46,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            theme: themeBuilder(context),
+            colorScheme: colorSchemeBuilder(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -61,7 +66,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            theme: themeBuilder(context),
+            colorScheme: colorSchemeBuilder(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -80,7 +85,7 @@ class VersionChecker {
     String newVersionText = _defaultNewVersionText,
     String applyText = _defaultApplyText,
     bool debugOutput = true,
-    ThemeData theme,
+    ColorScheme colorScheme,
   }) async {
     final serverVersion = await VersionHelper.getActualVersion();
     final appVersion = await VersionHelper.getAppVersion();
@@ -95,7 +100,7 @@ class VersionChecker {
     if (serverVersion > appVersion) {
       await NewVersionModal.open(
         context,
-        theme ?? Theme.of(context),
+        colorScheme ?? Theme.of(context).colorScheme,
         newVersionAvailableText: newVersionText,
         applyText: applyText,
       );
