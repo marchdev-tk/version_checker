@@ -25,7 +25,7 @@ class VersionChecker {
     String Function(BuildContext context) applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
-    ThemeData theme,
+    ThemeData Function(BuildContext) themeBuilder,
   }) {
     assert(instantCheck != null);
     assert(debugOutput != null);
@@ -41,7 +41,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            theme: theme,
+            theme: themeBuilder(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -61,7 +61,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            theme: theme,
+            theme: themeBuilder(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
