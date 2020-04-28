@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0]
+
+* Redo theme to colorScheme.
+
 ## [1.3.1]
 
 * Redo theme argument to themeBuilder.
