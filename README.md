@@ -25,6 +25,18 @@ Also, for localization purposes this method has following arguments:
 
 If `debugOutput` argument is set to `true`, then extra info will be printed into console.
 
+### In index.html file add following code between head and body tags:
+
+```html
+<script>
+function hardReload() {
+    setTimeout(function () {
+        window.location.reload(true);
+    }, 100);
+}
+</script>
+```
+
 ### Before deploying website, you should update build script as follows:
 
 **Linux:**
@@ -70,7 +82,3 @@ Add examples here
 ## Feature requests and Bug reports
 
 Feel free to post a feature requests or report a bug [here](https://github.com/marchdev-tk/version_checker/issues).
-
-## TODO
-
- * Add Theme support 

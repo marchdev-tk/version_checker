@@ -7,12 +7,17 @@ import 'package:flutter/material.dart';
 import 'version_helper.dart';
 
 class NewVersionModal extends StatelessWidget {
-  const NewVersionModal._(this.newVersionAvailableText, this.applyText);
+  const NewVersionModal._(
+    this.newVersionAvailableText,
+    this.applyText,
+    this.theme,
+  );
 
   static bool _opened = false;
 
   static Future open(
-    BuildContext context, {
+    BuildContext context,
+    ThemeData theme, {
     String newVersionAvailableText = 'NEW VERSION AVAILABLE',
     String applyText = 'Apply',
   }) async {
@@ -24,7 +29,7 @@ class NewVersionModal extends StatelessWidget {
       await showDialog(
         context: context,
         builder: (context) =>
-            NewVersionModal._(newVersionAvailableText, applyText),
+            NewVersionModal._(newVersionAvailableText, applyText, theme),
       );
     } finally {
       _opened = false;
@@ -33,9 +38,11 @@ class NewVersionModal extends StatelessWidget {
 
   final String newVersionAvailableText;
   final String applyText;
+  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) => AlertDialog(
+        backgroundColor: theme.dialogBackgroundColor,
         content: Container(
           height: 100,
           width: 200,
@@ -45,12 +52,16 @@ class NewVersionModal extends StatelessWidget {
             children: <Widget>[
               Text(
                 newVersionAvailableText ?? 'NEW VERSION AVAILABLE',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: theme.colorScheme.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 16),
               Center(
                 child: RaisedButton(
-                  textColor: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
+                  textColor: Theme.of(context).colorScheme.onPrimary,
                   child: Text(applyText ?? 'Apply'),
                   onPressed: () => VersionHelper.refresh(),
                 ),

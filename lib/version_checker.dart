@@ -6,7 +6,7 @@ library version_checker;
 
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'src/dom_injector.dart';
@@ -25,6 +25,7 @@ class VersionChecker {
     String Function(BuildContext context) applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
+    ThemeData theme,
   }) {
     assert(instantCheck != null);
     assert(debugOutput != null);
@@ -40,6 +41,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
+            theme: theme,
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -59,6 +61,7 @@ class VersionChecker {
           final context = contextBuilder();
           checkVersion(
             context: context,
+            theme: theme,
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -77,6 +80,7 @@ class VersionChecker {
     String newVersionText = _defaultNewVersionText,
     String applyText = _defaultApplyText,
     bool debugOutput = true,
+    ThemeData theme,
   }) async {
     final serverVersion = await VersionHelper.getActualVersion();
     final appVersion = await VersionHelper.getAppVersion();
@@ -91,6 +95,7 @@ class VersionChecker {
     if (serverVersion > appVersion) {
       await NewVersionModal.open(
         context,
+        theme ?? Theme.of(context),
         newVersionAvailableText: newVersionText,
         applyText: applyText,
       );
