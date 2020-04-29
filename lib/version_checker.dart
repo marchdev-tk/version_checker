@@ -13,6 +13,8 @@ import 'src/dom_injector.dart';
 import 'src/version_helper.dart';
 import 'src/new_version_popup.dart';
 
+export 'src/version_helper.dart';
+
 class VersionChecker {
   static const _defaultNewVersionText = 'NEW VERSION AVAILABLE';
   static const _defaultApplyText = 'Apply';
