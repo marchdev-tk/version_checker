@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0]
+
+* Exported VersionHelper class.
+
 ## [1.4.0]
 
 * Redo theme to colorScheme.

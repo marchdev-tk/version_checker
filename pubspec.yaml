@@ -1,5 +1,5 @@
 name: version_checker
-version: 1.4.0
+version: 1.5.0
 homepage: https://github.com/marchdev-tk/version_checker
 description: Version Checker Popup is used to prompt user for website reloading with clearing cached data to apply a new version of the site.
 
