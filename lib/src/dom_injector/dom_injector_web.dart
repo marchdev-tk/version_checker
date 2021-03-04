@@ -1,4 +1,4 @@
-// Copyright (c) 2020, the MarchDev Toolkit project authors. Please see the AUTHORS file
+// Copyright (c) 2021, the MarchDev Toolkit project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -6,10 +6,11 @@ import 'dart:html' as html;
 
 class DOMInjectorImpl {
   static void inject() {
-    final head = html.querySelector('head');
-    final html.ScriptElement mainDartVer = html.querySelector('body > script');
-    final appVersion = mainDartVer?.src?.contains('v=') == true
-        ? mainDartVer.src.split('v=').last
+    final head = html.querySelector('head')!;
+    final mainDartVer =
+        html.querySelector('body > script') as html.ScriptElement?;
+    final appVersion = mainDartVer?.src.contains('v=') == true
+        ? mainDartVer!.src.split('v=').last
         : null;
     head.appendHtml(
       '''<script id="version-checker-script">

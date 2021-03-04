@@ -1,4 +1,4 @@
-// Copyright (c) 2020, the MarchDev Toolkit project authors. Please see the AUTHORS file
+// Copyright (c) 2021, the MarchDev Toolkit project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -51,7 +51,7 @@ class NewVersionModal extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                newVersionAvailableText ?? 'NEW VERSION AVAILABLE',
+                newVersionAvailableText,
                 style: TextStyle(
                   color: colorScheme.onBackground,
                   fontWeight: FontWeight.bold,
@@ -59,10 +59,10 @@ class NewVersionModal extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Center(
-                child: RaisedButton(
-                  color: colorScheme.secondary,
-                  textColor: colorScheme.onSecondary,
-                  child: Text(applyText ?? 'Apply'),
+                child: ElevatedButton(
+                  // color: colorScheme.secondary,
+                  // textColor: colorScheme.onSecondary,
+                  child: Text(applyText),
                   onPressed: () => VersionHelper.refresh(),
                 ),
               ),

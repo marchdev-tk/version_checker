@@ -1,4 +1,4 @@
-// Copyright (c) 2020, the MarchDev Toolkit project authors. Please see the AUTHORS file
+// Copyright (c) 2021, the MarchDev Toolkit project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'src/dom_injector.dart';
-import 'src/version_helper.dart';
 import 'src/new_version_popup.dart';
+import 'src/version_helper.dart';
 
 export 'src/version_helper.dart';
 
@@ -25,30 +25,26 @@ class VersionChecker {
   ///  * `colorScheme.secondary` - button color;
   ///  * `colorScheme.onSecondary` - button text color.
   static void initialize({
-    @required BuildContext Function() contextBuilder,
+    required BuildContext Function() contextBuilder,
     Duration timerDelay = const Duration(minutes: 5),
     Duration instantDelay = const Duration(milliseconds: 300),
-    String Function(BuildContext context) newVersionTextBuilder,
-    String Function(BuildContext context) applyTextBuilder,
+    String Function(BuildContext context)? newVersionTextBuilder,
+    String Function(BuildContext context)? applyTextBuilder,
     bool instantCheck = true,
     bool debugOutput = true,
-    ColorScheme Function(BuildContext) colorSchemeBuilder,
+    ColorScheme Function(BuildContext)? colorSchemeBuilder,
   }) {
-    assert(instantCheck != null);
-    assert(debugOutput != null);
-
     DOMInjector.inject();
 
     if (instantCheck) {
-      SchedulerBinding.instance.addPostFrameCallback(
+      SchedulerBinding.instance!.addPostFrameCallback(
         (_) async {
-          await Future.delayed(
-              instantDelay ?? const Duration(milliseconds: 300));
+          await Future.delayed(instantDelay);
 
           final context = contextBuilder();
           checkVersion(
             context: context,
-            colorScheme: colorSchemeBuilder(context),
+            colorScheme: colorSchemeBuilder!(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -62,13 +58,13 @@ class VersionChecker {
     }
 
     Timer.periodic(
-      timerDelay ?? const Duration(minutes: 5),
-      (_) => SchedulerBinding.instance.addPostFrameCallback(
+      timerDelay,
+      (_) => SchedulerBinding.instance!.addPostFrameCallback(
         (_) {
           final context = contextBuilder();
           checkVersion(
             context: context,
-            colorScheme: colorSchemeBuilder(context),
+            colorScheme: colorSchemeBuilder!(context),
             newVersionText: newVersionTextBuilder != null
                 ? newVersionTextBuilder(context)
                 : _defaultNewVersionText,
@@ -83,11 +79,11 @@ class VersionChecker {
   }
 
   static void checkVersion({
-    @required BuildContext context,
+    required BuildContext context,
     String newVersionText = _defaultNewVersionText,
     String applyText = _defaultApplyText,
     bool debugOutput = true,
-    ColorScheme colorScheme,
+    ColorScheme? colorScheme,
   }) async {
     final serverVersion = await VersionHelper.getActualVersion();
     final appVersion = await VersionHelper.getAppVersion();
