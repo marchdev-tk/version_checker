@@ -7,6 +7,8 @@
 
 Version Checker Popup is used to prompt user for website reloading with clearing cached data to apply a new version of the site.
 
+# THIS PLUGIN IS DISCONTINUED
+
 ## Getting Started
 
 ### **IMPORTANT!** main.dart.js script must be the first script in body tag!
